@@ -67,7 +67,7 @@
             var randomIndex = Math.floor( Math.random() * allPlaylists.length );
             var target = allPlaylists[randomIndex].uri;
 
-            console.log( target );
+            console.log( allPlaylists[randomIndex] );
 
             window.location.href = target; //bye bye. have fun listening
           })
