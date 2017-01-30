@@ -52,13 +52,25 @@ var testall;
           allPlaylists.push.apply(allPlaylists, firstData.items);
           var playlistPromises = [];
 
-          for (var offset = 50; offset < firstData.total; offset += LIMIT) {
+          for (var skip = 50; skip < firstData.total; skip += LIMIT) {
 
-            var request = spotifyAPI.getUserPlaylists( {limit: LIMIT, offset: offset} )
-            .then(function(nextData) {
-              allPlaylists.push.apply(allPlaylists, nextData.items);
-            }, function(err) {
-              console.error(err);
+//            var request = spotifyAPI.getUserPlaylists( {limit: LIMIT, offset: skip} )
+//            .then(function(nextData) {
+//              allPlaylists.push.apply(allPlaylists, nextData.items);
+//            }, function(err) {
+//              console.error(err);
+//            });
+
+
+            var request = $.ajax({
+                url: 'https://api.spotify.com/v1/me/playlists',
+                data: { limit: LIMIT, offset: skip},
+                headers: {
+                  'Authorization': 'Bearer ' + access_token
+                },
+                success: function(response) {
+                  allPlaylists.push.apply(allPlaylists, response.items);
+                }
             });
 
             playlistPromises.push(request);
