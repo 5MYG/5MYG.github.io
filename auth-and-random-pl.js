@@ -71,7 +71,9 @@
             console.log( allPlaylists[randomIndex] );
             var target = allPlaylists[randomIndex].external_urls.spotify;
 //          var target = allPlaylists[randomIndex].uri;   was ist schöner?
-            window.location.href = target; //bye bye. have fun listening
+//          window.location.href = target; //bye bye. have fun listening
+
+            window.open(target,'_blank');
           })
 
         }, function(err) {
