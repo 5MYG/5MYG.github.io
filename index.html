@@ -60,8 +60,14 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="spotify-web-api.js"></script>
+
     <script>
       (function() {
+
+        var Spotify = require('spotify-web-api-js');
+        var spotifyWebAPI = new Spotify();
+
         var stateKey = 'spotify_auth_state';
         /**
          * Obtains parameters from the hash of the URL
@@ -103,6 +109,7 @@
           alert('There was an error during the authentication');
         } else {
           localStorage.removeItem(stateKey);
+
           if (access_token) {
             $.ajax({
                 url: 'https://api.spotify.com/v1/me',
@@ -115,6 +122,17 @@
                   $('#loggedin').show();
                 }
             });
+
+            spotifyWebAPI.setAccessToken('access_token');
+            spotifyWebAPI.getUserPlaylists()
+              .then(function(data) {
+                console.log('User playlists', data);
+              }, function(err) {
+                console.error(err);
+              });
+
+
+
           } else {
               $('#login').show();
               $('#loggedin').hide();
