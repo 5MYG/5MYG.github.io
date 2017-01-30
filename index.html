@@ -80,13 +80,6 @@
 
 
 
-            // Add other playlists
-            for (var offset = 0; offset < playlistCount; offset = offset + limit) {
-              var url = "https://api.spotify.com/v1/users/" + userId + "/playlists";
-              requests.push(
-                window.Helpers.apiCall(url + '?offset=' + offset + '&limit=' + limit, access_token)
-              )
-            }
 
 
 
