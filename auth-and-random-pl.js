@@ -47,10 +47,7 @@
 
       spotifyAPI.getUserPlaylists( {limit: LIMIT, offset: 0} )
         .then(function(firstData) {
-          console.log('User playlists', firstData);
-
           allPlaylists.push.apply(allPlaylists, firstData.items);
-
           var playlistPromises = [];
 
           for (var offset = 50; offset < firstData.total; offset += LIMIT) {
@@ -66,8 +63,10 @@
           }
 
           $.when.apply(null, playlistPromises).done(function() {
-            console.log( allPlaylists );
-            $('body').append('All Done!')
+            $('body').append('All Done!');
+            var randomIndex = Math.floor( Math.random() * allPlaylists.length );
+            var target = allPlaylists[randomIndex].uri;
+            window.location.href = target; //bye bye. have fun listening
           })
 
         }, function(err) {
