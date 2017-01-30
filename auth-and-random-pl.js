@@ -62,7 +62,7 @@
               console.error(err);
             });
 
-            promises.push(request);
+            playlistPromises.push(request);
           }
 
           $.when.apply(null, playlistPromises).done(function() {
