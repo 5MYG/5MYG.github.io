@@ -65,8 +65,7 @@
     <script>
       (function() {
 
-        var Spotify = require('spotify-web-api-js');
-        var spotifyWebAPI = new Spotify();
+        var spotifyAPI = new SpotifyWebApi();
 
         var stateKey = 'spotify_auth_state';
         /**
@@ -123,8 +122,8 @@
                 }
             });
 
-            spotifyWebAPI.setAccessToken('access_token');
-            spotifyWebAPI.getUserPlaylists()
+            spotifyAPI.setAccessToken(access_token);
+            spotifyAPI.getUserPlaylists()
               .then(function(data) {
                 console.log('User playlists', data);
               }, function(err) {
