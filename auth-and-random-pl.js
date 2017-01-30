@@ -64,7 +64,8 @@ var testall;
             playlistPromises.push(request);
           }
 
-          $.when.apply(null, playlistPromises).done(function() {
+          $.when.apply(null, playlistPromises)
+          .then(function() {
             $('body').append('All Done!');
 
             testall = allPlaylists;
