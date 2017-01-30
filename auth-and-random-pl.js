@@ -64,6 +64,9 @@
 
           $.when.apply(null, playlistPromises).done(function() {
             $('body').append('All Done!');
+
+            console.log( allPlaylists );
+
             var randomIndex = Math.floor( Math.random() * allPlaylists.length );
             console.log( allPlaylists[randomIndex] );
             var target = allPlaylists[randomIndex].external_urls.spotify;
