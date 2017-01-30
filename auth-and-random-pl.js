@@ -66,7 +66,7 @@
           }
 
           $.when.apply(null, playlistPromises).done(function() {
-            console.log( allPlaylists );            
+            console.log( allPlaylists );
             $('body').append('All Done!')
           })
 
@@ -81,8 +81,7 @@
     }
     document.getElementById('login-button').addEventListener('click', function() {
       var client_id = '0021f16415934279a9f094535452a760';
-//            var redirect_uri = 'https://5myg.github.io/';
-      var redirect_uri = 'C:\Users\Denis Lessin\Desktop\git repos\test-git\5MYG.github.io\index.html';
+      var redirect_uri = 'https://5myg.github.io/';
 
       var state = generateRandomString(16);
       localStorage.setItem(stateKey, state);
