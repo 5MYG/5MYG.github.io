@@ -1,3 +1,5 @@
+var testall;
+
 (function() {
 
   var spotifyAPI = new SpotifyWebApi();
@@ -65,6 +67,7 @@
           $.when.apply(null, playlistPromises).done(function() {
             $('body').append('All Done!');
 
+            testall = allPlaylists;
             console.log( allPlaylists );
 
             var randomIndex = Math.floor( Math.random() * allPlaylists.length );
