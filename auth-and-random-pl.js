@@ -59,7 +59,7 @@
   }
   else {
 
-    if (access_token == null || state == null || state !== storedState)) {
+    if (access_token == null || state == null || state !== storedState) {
       alert('There was an error during the authentication');
     } else {
       localStorage.removeItem(stateKey);
