@@ -70,22 +70,18 @@
       .then( function (response) {
         var randomIndex = Math.floor(Math.random() * response.total);
 
-        if (randomIndex < LIMIT) {
-          return response.items[randomIndex];
-        }
+//        if (randomIndex < LIMIT) {
+//          return response.items[randomIndex];
+//        }
 
-        return getPlaylists(access_token, 1, randomIndex).items[0];
-      })
+        var playlist = getPlaylists(access_token, 1, randomIndex).items[0];
+        var target = playlist.external_urls.spotify;
+//      var target = targetPlaylist..uri;   was ist schöner?
+        window.location.replace(target); //bye bye. have fun listening
+
+      });
 //      .catch( function (error) {
 //        console.log("error first playlists", error);
-//      })
-      .then( function (targetPlaylist) {
-        var target = targetPlaylist.external_urls.spotify;
-    //  var target = targetPlaylist..uri;   was ist schöner?
-        window.location.replace(target); //bye bye. have fun listening
-      });
-//      .catch(function (error){
-//          console.log("error second get", error);
 //      });
 
     }
