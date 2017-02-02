@@ -51,7 +51,7 @@
       url += '&scope=' + encodeURIComponent(scope);
       url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
       url += '&state=' + encodeURIComponent(state);
-      window.location.replace(url);
+      window.location.href = url;
     });
 
     $('#login').show();
@@ -64,6 +64,8 @@
     }
     else {
       localStorage.removeItem(stateKey);
+
+      $('body').append("fetching data of playlists...");
 
       var LIMIT = 50;
       getPlaylists(access_token, LIMIT, 0)
@@ -80,7 +82,11 @@
       .then( function (response2) {
         var target = response2.items[0].external_urls.spotify;
 //      var target = response2.items[0].uri;   was ist schöner?
-        window.location.replace(target); //bye bye. have fun listening
+
+        $('body').append("redirecting to spotiy...");
+
+
+        window.location.href = target; //bye bye. have fun listening
       });
 //      .catch( function (error) {
 //        console.log("error first playlists", error);
