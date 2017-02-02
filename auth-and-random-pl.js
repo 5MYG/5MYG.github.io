@@ -73,7 +73,7 @@
         var randomIndex = Math.floor(Math.random() * response1.total);
 
         if (randomIndex < LIMIT) {
-          response1.items = [ response.items[randomIndex] ]
+          response1.items = [ response1.items[randomIndex] ];
           return response1;
         }
 
