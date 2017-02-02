@@ -61,7 +61,8 @@
 
     if (access_token == null || state == null || state !== storedState) {
       alert('There was an error during the authentication');
-    } else {
+    }
+    else {
       localStorage.removeItem(stateKey);
 
       var LIMIT = 50;
@@ -88,5 +89,7 @@
       });
 
     }
+
+  }
 
 })();
