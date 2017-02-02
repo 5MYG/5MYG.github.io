@@ -1,14 +1,9 @@
-var testall;
-
 (function() {
 
   var spotifyAPI = new SpotifyWebApi();
 
   var stateKey = 'spotify_auth_state';
-  /**
-   * Obtains parameters from the hash of the URL
-   * @return Object
-   */
+
   function getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -18,11 +13,7 @@ var testall;
     }
     return hashParams;
   }
-  /**
-   * Generates a random string containing numbers and letters
-   * @param  {number} length The length of the string
-   * @return {string} The generated string
-   */
+
   function generateRandomString(length) {
     var text = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -32,75 +23,22 @@ var testall;
     return text;
   };
 
+  function getPlaylists(access_token, limit, offset) {
+      return $.ajax({
+        url: "https://api.spotify.com/v1/me/playlists",
+        headers: { 'Authorization': 'Bearer ' + access_token },
+        data: { limit: limit, offset: offset }
+      });
+  }
 
   var params = getHashParams();
   var access_token = params.access_token,
       state = params.state,
       storedState = localStorage.getItem(stateKey);
-  if (access_token && (state == null || state !== storedState)) {
-    alert('There was an error during the authentication');
-  } else {
-    localStorage.removeItem(stateKey);
 
-    if (access_token) {
-      spotifyAPI.setAccessToken(access_token);
-      var allPlaylists = [];
-      var LIMIT = 50;
+  if (storedState == null) {
 
-      spotifyAPI.getUserPlaylists( {limit: LIMIT, offset: 0} )
-        .then(function(firstData) {
-          allPlaylists.push.apply(allPlaylists, firstData.items);
-          var playlistPromises = [];
-
-          for (var skip = 50; skip < firstData.total; skip += LIMIT) {
-
-//            var request = spotifyAPI.getUserPlaylists( {limit: LIMIT, offset: skip} )
-//            .then(function(nextData) {
-//              allPlaylists.push.apply(allPlaylists, nextData.items);
-//            }, function(err) {
-//              console.error(err);
-//            });
-
-
-            var request = $.ajax({
-                url: 'https://api.spotify.com/v1/me/playlists',
-                data: { limit: LIMIT, offset: skip},
-                headers: {
-                  'Authorization': 'Bearer ' + access_token
-                },
-                success: function(response) {
-                  allPlaylists.push.apply(allPlaylists, response.items);
-                }
-            });
-
-            playlistPromises.push(request);
-          }
-
-          $.when.apply($, playlistPromises).done(function() {
-            $('body').append('All Done!');
-            console.log( allPlaylists.length );
-
-            testall = allPlaylists;
-            console.log( allPlaylists );
-
-            var randomIndex = Math.floor( Math.random() * allPlaylists.length );
-            console.log( allPlaylists[randomIndex] );
-            var target = allPlaylists[randomIndex].external_urls.spotify;
-//          var target = allPlaylists[randomIndex].uri;   was ist schöner?
-            window.location.href = target; //bye bye. have fun listening
-
-          })
-
-        }, function(err) {
-          console.error(err);
-        });
-
-
-    } else {
-        $('#login').show();
-        $('#loggedin').hide();
-    }
-    document.getElementById('login-button').addEventListener('click', function() {
+    $("#login-button").click(function() {
       var client_id = '0021f16415934279a9f094535452a760';
       var redirect_uri = 'https://5myg.github.io/';
 
@@ -113,7 +51,42 @@ var testall;
       url += '&scope=' + encodeURIComponent(scope);
       url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
       url += '&state=' + encodeURIComponent(state);
-      window.location = url;
-    }, false);
+      window.location.replace(url);
+    });
+
+    $('#login').show();
+
   }
+  else {
+
+    if (access_token == null || state == null || state !== storedState)) {
+      alert('There was an error during the authentication');
+    } else {
+      localStorage.removeItem(stateKey);
+
+      var LIMIT = 50;
+      getPlaylists(access_token, LIMIT, 0)
+      .then( function (response) {
+        var randomIndex = Math.floor(Math.random() * response.length);
+
+        if (randomIndex < LIMIT) {
+          return response.items[randomIndex];
+        }
+
+        return getPlaylists(access_token, 1, randomIndex).items[0];
+      })
+      .catch( function (error) {
+        console.log("error first playlists", error);
+      })
+      .then( function (targetPlaylist) {
+        var target = targetPlaylist.external_urls.spotify;
+    //  var target = targetPlaylist..uri;   was ist schöner?
+        window.location.replace(target); //bye bye. have fun listening
+      })
+      .catch(function (error){
+          console.log("error second get", error);
+      });
+
+    }
+
 })();
