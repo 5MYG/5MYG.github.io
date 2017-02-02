@@ -67,18 +67,20 @@
 
       var LIMIT = 50;
       getPlaylists(access_token, LIMIT, 0)
-      .then( function (response) {
-        var randomIndex = Math.floor(Math.random() * response.total);
+      .then( function (response1) {
+        var randomIndex = Math.floor(Math.random() * response1.total);
 
-//        if (randomIndex < LIMIT) {
-//          return response.items[randomIndex];
-//        }
+        if (randomIndex < LIMIT) {
+          response1.items = [ response.items[randomIndex] ]
+          return response1;
+        }
 
-        var playlist = getPlaylists(access_token, 1, randomIndex).items[0];
-        var target = playlist.external_urls.spotify;
-//      var target = targetPlaylist..uri;   was ist schöner?
+        return getPlaylists(access_token, 1, randomIndex);
+      })
+      .then( function (response2) {
+        var target = response2.items[0].external_urls.spotify;
+//      var target = response2.items[0].uri;   was ist schöner?
         window.location.replace(target); //bye bye. have fun listening
-
       });
 //      .catch( function (error) {
 //        console.log("error first playlists", error);
