@@ -68,7 +68,7 @@
       var LIMIT = 50;
       getPlaylists(access_token, LIMIT, 0)
       .then( function (response) {
-        var randomIndex = Math.floor(Math.random() * response.length);
+        var randomIndex = Math.floor(Math.random() * response.total);
 
         if (randomIndex < LIMIT) {
           return response.items[randomIndex];
