@@ -1,7 +1,5 @@
 (function() {
 
-  var spotifyAPI = new SpotifyWebApi();
-
   var stateKey = 'spotify_auth_state';
 
   function getHashParams() {
@@ -83,7 +81,7 @@
         var target = response2.items[0].external_urls.spotify;
 //      var target = response2.items[0].uri;   was ist schöner?
 
-        $('body').append("redirecting to spotiy...");
+        $('body').append("redirecting to spotify...");
 
 
         window.location.href = target; //bye bye. have fun listening
