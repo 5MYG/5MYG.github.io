@@ -76,17 +76,17 @@
 
         return getPlaylists(access_token, 1, randomIndex).items[0];
       })
-      .catch( function (error) {
-        console.log("error first playlists", error);
-      })
+//      .catch( function (error) {
+//        console.log("error first playlists", error);
+//      })
       .then( function (targetPlaylist) {
         var target = targetPlaylist.external_urls.spotify;
     //  var target = targetPlaylist..uri;   was ist schöner?
         window.location.replace(target); //bye bye. have fun listening
-      })
-      .catch(function (error){
-          console.log("error second get", error);
       });
+//      .catch(function (error){
+//          console.log("error second get", error);
+//      });
 
     }
 
