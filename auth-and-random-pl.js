@@ -121,7 +121,7 @@
     else {
       localStorage.setItem(ACCESS_TOKEN_KEY, params.access_token);
       var storedDateLogin = localStorage.getItem(DATE_LOGIN_KEY);
-      localStorage.setItem(DATE_EXPIRE_KEY, storedDate + params.expires_in);
+      localStorage.setItem(DATE_EXPIRE_KEY, storedDateLogin + params.expires_in);
       showRandomButton(params.access_token);
     }
   }
