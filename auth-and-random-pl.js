@@ -29,6 +29,7 @@
   function showLogin() {
 
     $("#login-button").click(function() {
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
       var state = generateRandomString(16);
       localStorage.setItem(STATE_KEY, state);
       var dateLogin = Math.floor(Date.now() / 1000);
