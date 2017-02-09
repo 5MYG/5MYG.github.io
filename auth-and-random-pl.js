@@ -29,7 +29,7 @@
   function getPlaylists(access_token, limit, offset) {
       return $.ajax({
         url: "https://api.spotify.com/v1/me/playlists",
-        headers: { "Authorization": "Bearer " + access_token },
+        headers: { "Authorization": "Bearer " + access_token + "34wjesrflksjdfk fsdsdlkfjklsdfjlkfdsjl"},
         data: { limit: limit, offset: offset }
       });
   }
@@ -86,12 +86,12 @@
           window.location.href = target;
           $("body").append("bye bye. have fun listening");
         }, function(err) {
-          console.log("error first playlists", error);
+          console.log("error fetching playlists", error);
         });
     });
 
     $("#open-random").show();
-    
+
   }
 
   var params = getHashParams();
