@@ -64,7 +64,7 @@
 
     $("#open-random-button").click(function() {
 
-      $("body").append("fetching data of playlists...");
+      $("#messages-for-user") .append("fetching data of playlists...");
 
       var LIMIT = 50;
       getPlaylists(access_token, LIMIT, 0)
@@ -82,17 +82,17 @@
           var target = response2.items[0].external_urls.spotify;
 //        var target = response2.items[0].uri; //
 
-          $("body").append("redirecting to spotify...");
+          $("#messages-for-user") .append("redirecting to spotify...");
           window.location.href = target;
-          $("body").append("bye bye. have fun listening");
+          $("#messages-for-user") .append("bye bye. have fun listening");
         }, function(err) {
-          var errorMsg = "error fetching playlists.";
+          var errorMsg = "unexpected error \n";
           console.log(errorMsg, err);
-          errorMsg += " status: " + err.status;
-          errorMsg += " statusText: " + err.statusText;
-          errorMsg += " error: " + err.responseJSON.error.message;
+          errorMsg += " status: " + err.status + "\n";
+          errorMsg += " statusText: " + err.statusText + "\n";
+          errorMsg += " error: " + err.responseJSON.error.message + "\n";
           errorMsg += " Please try again.";
-          $("body").append(errorMsg);
+          $("#messages-for-user") .append(errorMsg);
 
           $("#open-random").hide();
           showLogin();
@@ -115,7 +115,7 @@
   else if (storedAccessToken == null) {
     // after authentication:
     if (params.access_token == null || params.state == null || params.state !== storedState) {
-      $("body").append("There was an error during the authentication. Please try again.");
+      $("#messages-for-user") .append("There was an error during the authentication. Please try again.");
       showLogin();
     }
     else {
