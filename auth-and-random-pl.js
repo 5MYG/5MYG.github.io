@@ -90,8 +90,7 @@
           console.log(errorMsg, err);
           errorMsg += " status: " + err.status + "\n";
           errorMsg += " statusText: " + err.statusText + "\n";
-          errorMsg += " error: " + err.responseJSON.error.message + "\n";
-          errorMsg += " Please try again.";
+          errorMsg += " Please try again later. Or message me / create an issue.";
           $("#messages-for-user") .append(errorMsg);
 
           $("#open-random").hide();
