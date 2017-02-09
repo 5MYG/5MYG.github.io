@@ -121,7 +121,8 @@
     else {
       localStorage.setItem(ACCESS_TOKEN_KEY, params.access_token);
       var storedDateLogin = localStorage.getItem(DATE_LOGIN_KEY);
-      localStorage.setItem(DATE_EXPIRE_KEY, storedDateLogin + params.expires_in);
+      var dateExpire = parseInt(storedDateLogin) + parseInt(params.expires_in);
+      localStorage.setItem(DATE_EXPIRE_KEY, dateExpire);
       showRandomButton(params.access_token);
     }
   }
@@ -129,7 +130,7 @@
     // stored authentication:
     var dateNow = Math.floor(Date.now() / 1000) + 60;
     var storedDateExpire = localStorage.getItem(DATE_EXPIRE_KEY);
-    var expireTime = dateNow - storedDateExpire;
+    var expireTime = dateNow - parseInt(storedDateExpire);
 
     if (expireTime >= 0) {
       showLogin();
