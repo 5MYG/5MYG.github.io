@@ -26,14 +26,6 @@
     return text;
   };
 
-  function getPlaylists(access_token, limit, offset) {
-      return $.ajax({
-        url: "https://api.spotify.com/v1/me/playlists",
-        headers: { "Authorization": "Bearer " + access_token + "34wjesrflksjdfk fsdsdlkfjklsdfjlkfdsjl"},
-        data: { limit: limit, offset: offset }
-      });
-  }
-
   function showLogin() {
 
     $("#login-button").click(function() {
@@ -58,6 +50,14 @@
 
     $("#login").show();
 
+  }
+
+  function getPlaylists(access_token, limit, offset) {
+      return $.ajax({
+        url: "https://api.spotify.com/v1/me/playlists",
+        headers: { "Authorization": "Bearer " + access_token},
+        data: { limit: limit, offset: offset }
+      });
   }
 
   function showRandomButton(access_token) {
@@ -86,7 +86,16 @@
           window.location.href = target;
           $("body").append("bye bye. have fun listening");
         }, function(err) {
-          console.log("error fetching playlists", error);
+          var errorMsg = "error fetching playlists.";
+          console.log(errorMsg, err);
+          errorMsg += " status: " + err.status;
+          errorMsg += " statusText: " + err.statusText;
+          errorMsg += " error: " + err.responseJSON.error.message;
+          errorMsg += " Please try again.";
+          $("body").append(errorMsg);
+
+          $("#open-random").hide();
+          showLogin();
         });
     });
 
@@ -106,7 +115,7 @@
   else if (storedAccessToken == null) {
     // after authentication:
     if (params.access_token == null || params.state == null || params.state !== storedState) {
-      alert("There was an error during the authentication. Please try again.");
+      $("body").append("There was an error during the authentication. Please try again.");
       showLogin();
     }
     else {
