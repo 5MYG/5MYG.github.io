@@ -2,9 +2,9 @@
 
   var SITE_KEY = "random_spotify_playlist";
   var STATE_KEY = SITE_KEY + ":auth_state";
-  var DATE_KEY = SITE_KEY + ":date";
+  var DATE_LOGIN_KEY = SITE_KEY + ":date_login";
   var ACCESS_TOKEN_KEY = SITE_KEY + ":access_token";
-  var EXPIRES_IN_KEY = SITE_KEY + ":expires_in";
+  var DATE_EXPIRE_KEY = SITE_KEY + ":date_expire";
 
   function getHashParams() {
     var hashParams = {};
@@ -33,7 +33,7 @@
       var state = generateRandomString(16);
       localStorage.setItem(STATE_KEY, state);
       var dateLogin = Math.floor(Date.now() / 1000);
-      localStorage.setItem(DATE_KEY, dateLogin);
+      localStorage.setItem(DATE_LOGIN_KEY, dateLogin);
 
       var client_id = "0021f16415934279a9f094535452a760";
       var scope = "playlist-read-private";
@@ -120,18 +120,18 @@
     }
     else {
       localStorage.setItem(ACCESS_TOKEN_KEY, params.access_token);
-      localStorage.setItem(EXPIRES_IN_KEY, params.expires_in);
+      var storedDateLogin = localStorage.getItem(DATE_LOGIN_KEY);
+      localStorage.setItem(DATE_EXPIRE_KEY, storedDate + params.expires_in);
       showRandomButton(params.access_token);
     }
   }
   else {
     // stored authentication:
-    var storedDate = localStorage.getItem(DATE_KEY);
-    var storedExpiresIn = localStorage.getItem(EXPIRES_IN_KEY);
     var dateNow = Math.floor(Date.now() / 1000) + 60;
-    var isExpired = dateNow > storedDate + storedExpiresIn;
+    var storedDateExpire = localStorage.getItem(DATE_EXPIRE_KEY);
+    var expireTime = dateNow - storedDateExpire;
 
-    if (isExpired) {
+    if (expireTime >= 0) {
       showLogin();
     }
     else {
