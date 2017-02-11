@@ -37,7 +37,13 @@
 
       var client_id = "0021f16415934279a9f094535452a760";
       var scope = "playlist-read-private";
-      var redirect_uri = "https://5myg.github.io/";
+
+      var redirect_uri;
+      if (location.host === "localhost:8005") {
+        redirect_uri = "http://localhost:8005/";
+      } else {
+        redirect_uri = "https://5myg.github.io/";
+      }
 
       var url = "https://accounts.spotify.com/authorize" +
         "?response_type=token" +
