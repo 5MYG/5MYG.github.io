@@ -67,9 +67,7 @@
       $("#messages-for-user") .append("fetching data of playlists...");
 
       var $radioWrappers = $(this).siblings(".open-variant-radio");
-      var openVariant = $radioWrappers.find("input[name=open-variant]:checked").val());
-
-      $("#myform input[type='radio']:checked").val();
+      var openVariant = $radioWrappers.find("input[name=open-variant]:checked").val();
 
       var LIMIT = 50;
       getPlaylists(access_token, LIMIT, 0)
