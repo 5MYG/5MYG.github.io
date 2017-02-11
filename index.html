@@ -6,15 +6,35 @@
     <style type="text/css">
 
       body {
-        font-size: 3.2vw;
+        font-size: 12px;
+      }
+
+      @media (max-width: 480px) {
+          body{font-size: 16px;}
+      }
+
+      @media (max-width: 768px) {
+          body{font-size: 14px;}
+      }
+
+
+      *:not(body) {
+          font-size: 1.2em !important;
+      }
+
+      * {
+        text-align: center;
       }
 
       #login, #open-random, .open-variant-radio {
+        display: flex;
         display: none;
+        align-items: center;
+        justify-content: center;
       }
 
       .msg {
-        white-space: pre;
+        white-space: pre-line;
       }
 
     </style>
