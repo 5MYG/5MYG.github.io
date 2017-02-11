@@ -64,8 +64,12 @@
   function showRandomButton(access_token) {
 
     $("#open-random-button").click(function() {
-
       $("#messages-for-user") .append("fetching data of playlists...");
+
+      var $radioWrappers = $(this).siblings(".open-variant-radio");
+      var openVariant = $radioWrappers.find("input[name=open-variant]:checked").val());
+
+      $("#myform input[type='radio']:checked").val();
 
       var LIMIT = 50;
       getPlaylists(access_token, LIMIT, 0)
@@ -80,10 +84,13 @@
           return getPlaylists(access_token, 1, randomIndex);
         })
         .then( function (response2) {
-          var target = response2.items[0].external_urls.spotify;
-//        var target = response2.items[0].uri; //
+          var target;
+          if (openVariant === "web")
+            target = response2.items[0].external_urls.spotify;
+          else
+            target = response2.items[0].uri;
 
-          $("#messages-for-user") .append("redirecting to spotify...");
+          $("#messages-for-user") .append("redirecting to spotify...\n");
           window.location.href = target;
           $("#messages-for-user") .append("bye bye. have fun listening");
         }, function(err) {
