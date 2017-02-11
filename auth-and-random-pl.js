@@ -61,10 +61,26 @@
       });
   }
 
+  function getExpireTime() {
+    var dateNow = Math.floor(Date.now() / 1000) + 60;
+    var storedDateExpire = localStorage.getItem(DATE_EXPIRE_KEY);
+    return dateNow - parseInt(storedDateExpire);
+  }
+
   function showRandomButton(access_token) {
 
     $("#open-random-button").click(function() {
-      $("#messages-for-user") .append("fetching data of playlists...");
+
+      var expireTime = getExpireTime();
+
+      if (expireTime >= 0) {
+        $(this).hide();
+        showLogin();
+        $("#messages-for-user").empty().append("authentication has expired. Please log in again");
+        return;
+      }
+
+      $("#messages-for-user").empty().append("fetching data of playlists...");
 
       var $radioWrappers = $(this).siblings(".open-variant-radio");
       var openVariant = $radioWrappers.find("input[name=open-variant]:checked").val();
@@ -88,9 +104,9 @@
           else
             target = response2.items[0].uri;
 
-          $("#messages-for-user") .append("redirecting to spotify...\n");
+          $("#messages-for-user").append("redirecting to spotify...\n");
           window.location.href = target;
-          $("#messages-for-user") .append("bye bye. have fun listening");
+          $("#messages-for-user").append("bye bye. have fun listening");
         }, function(err) {
           var errorMsg = "unexpected error \n";
           console.log(errorMsg, err);
@@ -133,9 +149,7 @@
   }
   else {
     // stored authentication:
-    var dateNow = Math.floor(Date.now() / 1000) + 60;
-    var storedDateExpire = localStorage.getItem(DATE_EXPIRE_KEY);
-    var expireTime = dateNow - parseInt(storedDateExpire);
+    var expireTime = getExpireTime();
 
     if (expireTime >= 0) {
       showLogin();

@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <style type="text/css">
 
+      body {
+        font-size: 3.2vw;
+      }
+
       #login, #open-random {
         display: none;
       }
@@ -12,7 +16,6 @@
       .msg {
         white-space: pre;
       }
-
 
     </style>
   </head>
@@ -27,7 +30,7 @@
       <div id="open-random">
         <button id="open-random-button" class="btn btn-primary">open random playlist</button>
         <div class="radio open-variant-radio">
-          <label><input type="radio" name="open-variant" value="web">Web</label>
+          <label><input type="radio" name="open-variant" value="web" checked>Web</label>
         </div>
         <div class="radio open-variant-radio">
           <label><input type="radio" name="open-variant" value="spotifyApp">Spotify App</label>
