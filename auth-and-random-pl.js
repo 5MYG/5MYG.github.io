@@ -127,6 +127,9 @@
   if (! /Mobi/i.test(navigator.userAgent) ) {
     $(".open-variant-radio").show();
   }
+  else {
+    $(body).css("font-size", "18px");
+  }
 
   var params = getHashParams();
 
