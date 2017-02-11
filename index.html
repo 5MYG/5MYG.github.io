@@ -9,7 +9,7 @@
         font-size: 3.2vw;
       }
 
-      #login, #open-random {
+      #login, #open-random, .open-variant-radio {
         display: none;
       }
 
@@ -30,10 +30,14 @@
       <div id="open-random">
         <button id="open-random-button" class="btn btn-primary">open random playlist</button>
         <div class="radio open-variant-radio">
-          <label><input type="radio" name="open-variant" value="web" checked>Web</label>
+          <label>
+            <input type="radio" name="open-variant" value="spotifyApp" checked>Spotify App
+          </label>
         </div>
         <div class="radio open-variant-radio">
-          <label><input type="radio" name="open-variant" value="spotifyApp">Spotify App</label>
+          <label>
+            <input type="radio" name="open-variant" value="web">Web
+          </label>
         </div>
       </div>
       <div class="msg">

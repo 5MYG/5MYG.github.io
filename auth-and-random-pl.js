@@ -124,6 +124,10 @@
 
   }
 
+  if (! /Mobi/i.test(navigator.userAgent) ) {
+    $(".open-variant-radio").show();
+  }
+
   var params = getHashParams();
 
   var storedState = localStorage.getItem(STATE_KEY);
