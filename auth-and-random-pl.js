@@ -39,9 +39,15 @@
       var scope = "playlist-read-private";
 
       var redirect_uri;
-      if (location.host === "localhost:8005") {
-        redirect_uri = "http://localhost:8005/";
-      } else {
+      var localHost = "localhost:8005";
+      var localFromNetwork = "192.168.178.40:8005";
+      if (location.host === localHost) {
+        redirect_uri = "http://" + localHost;
+      }
+      else if (location.host === localFromNetwork) {
+        redirect_uri = "http://" + localFromNetwork;
+      }
+      else {
         redirect_uri = "https://5myg.github.io/";
       }
 
@@ -134,7 +140,7 @@
     $(".open-variant-radio").show();
   }
   else {
-    $(body).css("font-size", "18px");
+    $("body").css("font-size", "18px");
   }
 
   var params = getHashParams();
