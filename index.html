@@ -2,35 +2,53 @@
 <html>
   <head>
     <title>your random spotify playlist</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <style type="text/css">
 
       body {
-        font-size: 12px;
-      }
-
-      @media (max-width: 480px) {
-          body{font-size: 18px;}
-      }
-
-      @media (max-width: 768px) {
-          body{font-size: 16px;}
-      }
-
-
-      *:not(body) {
-          font-size: 1.2em !important;
+        font-family: sans-serif;
       }
 
       * {
         text-align: center;
+        font-size: 40px;
       }
 
+      h1 {
+        font-size: 60px;
+      }
+
+
+/*
+      @media (min-width: 481px) {
+        * {
+          font-size: 30px;
+        }
+
+        h1 {
+          font-size: 50px;
+        }
+      }
+
+      @media (min-width: 769px) {
+        * {
+          font-size: 20px;
+        }
+
+        h1 {
+          font-size: 30px;
+        }
+      }   */
+
+
+
       #login, #open-random, .open-variant-radio {
-        display: flex;
         display: none;
-        align-items: center;
-        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .open-variant-radio label {
+          display: inline-block;
+          width: 200px;
       }
 
       .msg {
@@ -45,23 +63,21 @@
     <div class="container">
       <h1>open a randomly chosen playlist of your user profile</h1>
       <div id="login">
-        <button id="login-button" class="btn btn-primary">Log in</button>
+        <button id="login-button">Log in</button>
       </div>
       <div id="open-random">
-        <button id="open-random-button" class="btn btn-primary">open random playlist</button>
+        <button id="open-random-button">open random playlist</button>
         <div class="radio open-variant-radio">
-          <label>
-            <input type="radio" name="open-variant" value="spotifyApp" checked>Spotify App
-          </label>
+          <label>Spotify App</label>
+          <input type="radio" name="open-variant" value="spotifyApp" checked>
         </div>
         <div class="radio open-variant-radio">
-          <label>
-            <input type="radio" name="open-variant" value="web">Web
-          </label>
+          <label>Web</label>
+          <input type="radio" name="open-variant" value="web">
         </div>
       </div>
       <div class="msg">
-        <h4 id="messages-for-user"></h4>
+        <p id="messages-for-user"></p>
       </div>
 
     </div>

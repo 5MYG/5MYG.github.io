@@ -48,7 +48,7 @@
         redirect_uri = "http://" + localFromNetwork;
       }
       else {
-        redirect_uri = "https://5myg.github.io/";
+        redirect_uri = "https://5myg.github.io";
       }
 
       var url = "https://accounts.spotify.com/authorize" +
@@ -138,9 +138,6 @@
 
   if (! /Mobi/i.test(navigator.userAgent) ) {
     $(".open-variant-radio").show();
-  }
-  else {
-    $("body").css("font-size", "18px");
   }
 
   var params = getHashParams();
